@@ -5,7 +5,7 @@ outputs: {}
 
 runs:
   using: "node20"
-  main: "src/main.mjs"
-  post: "src/post.mjs"
+  main: "src/main.js"
+  post: "src/post.js"
   post-if: "success()"
     
