@@ -12,7 +12,7 @@ runs:
         primary-key: nix-${{ hashFiles('devenv.*') }}
 
     - name: Base setup (if cache missed)
-      if: steps.cache.outputs.hit != 'true'
+      if: steps.cache.outputs.hit-primary-key != 'true'
       shell: bash
       run: |
         mv /nix/store_base/* /nix/store
