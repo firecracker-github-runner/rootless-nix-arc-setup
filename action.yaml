@@ -4,8 +4,20 @@ inputs: {}
 outputs: {}
 
 runs:
-  using: "node20"
-  main: "src/main.js"
-  post: "src/post.js"
-  post-if: "success()"
+  using: "composite"
+  steps:
+    - uses: nix-community/cache-nix-action@a75bbceef596ef10719eb9cb6821120a05022126 # v5
+      with:
+        primary-key: nix-${{ hashFiles('devenv.*') }}
+
+    - name: Prime the store
+      shell: bash
+      run: |
+        if [ -z "$(ls -A /nix/store)" ]; then
+          cp -r /nix/store_base/* /nix/store
+        fi
+
+    - name: Setup devenv
+      shell: bash
+      run: nix profile install nixpkgs#devenv
     
