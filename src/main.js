@@ -1,3 +1,4 @@
+import { exec } from "@actions/exec";
 import fs from "node:fs/promises";
 
 async function main() {
