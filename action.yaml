@@ -15,7 +15,10 @@ runs:
       if: steps.cache.outputs.hit != 'true'
       shell: bash
       run: |
-        cp -r /nix/store_base/* /nix/store
-        nix profile install nixpkgs#devenv
+        mv /nix/store_base/* /nix/store
+        
+    - name: Setup devenv
+      shell: bash
+      run: nix profile install nixpkgs#devenv
 
     
