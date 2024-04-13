@@ -15,10 +15,7 @@ runs:
       if: steps.cache.outputs.hit-primary-key != 'true'
       shell: bash
       run: |
-        cp -r /nix/store_base/* /nix/store
-        # Cleanup (prevents base from ending up in cache)
-        find /nix/store_base -type d -exec chmod 777 {} +
-        rm -rf /nix/store_base
+        cp -r /nix_base/store/* /nix/store
         
     - name: Setup devenv
       shell: bash
