@@ -6,18 +6,16 @@ outputs: {}
 runs:
   using: "composite"
   steps:
-    - uses: nix-community/cache-nix-action@a75bbceef596ef10719eb9cb6821120a05022126 # v5
+    - id: cache
+      uses: nix-community/cache-nix-action@a75bbceef596ef10719eb9cb6821120a05022126 # v5
       with:
         primary-key: nix-${{ hashFiles('devenv.*') }}
 
-    - name: Prime the store
+    - name: Base setup (if cache missed)
+      if: steps.cache.outputs.hit != 'true'
       shell: bash
       run: |
-        if [ -z "$(ls -A /nix/store)" ]; then
-          cp -r /nix/store_base/* /nix/store
-        fi
+        cp -r /nix/store_base/* /nix/store
+        nix profile install nixpkgs#devenv
 
-    - name: Setup devenv
-      shell: bash
-      run: nix profile install nixpkgs#devenv
     
