@@ -7,7 +7,7 @@ runs:
   using: "composite"
   steps:
     - id: cache
-      uses: nix-community/cache-nix-action@a75bbceef596ef10719eb9cb6821120a05022126 # v5
+      uses: nix-community/cache-nix-action@433f47d6a0f1384702e87434ee600c0269c1526f # v5
       with:
         primary-key: nix-${{ hashFiles('devenv.*') }}
 
